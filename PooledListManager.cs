@@ -71,12 +71,13 @@ public sealed class PooledListManager<T>
             GC.SuppressFinalize(this);
         }
 
+#if UNITY_EDITOR
         ~PooledList()
         {
-#if UNITY_ENGINE
+
             UnityEngine.Debug.LogWarning($"PooledList<{typeof(T).Name}> was not disposed properly.");
-#endif
         }
+#endif
 
         public override string ToString() => $"PooledList<{typeof(T).Name}>[{List.Count}]";
         public override bool Equals(object obj) => ReferenceEquals(this, obj);
